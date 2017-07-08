@@ -84,7 +84,7 @@ def get_subregion_site_dicts(eu_area = 'UK AND IRELAND', wd = None, filename=Non
     df_c = df_c[df_c['site'].isin(sites)]
     
     # --- WEST
-    if eu_area = 'WEST':
+    if eu_area == 'WEST':
         country_typelist = ['spain','france','portugal']
         def country_in_list(site, my_countries=country_typelist):
             return (site in my_countries)
@@ -94,7 +94,7 @@ def get_subregion_site_dicts(eu_area = 'UK AND IRELAND', wd = None, filename=Non
         subregion_dict[eu_area] = tmp_sites
     
     # --- BELENUX
-    if eu_area = 'BELENUX':
+    if eu_area == 'BELENUX':
         country_typelist = ['belgium','luxembourg','netherlands'] # belenux
         def country_in_list(site, my_countries=country_typelist):
             return (site in my_countries)
@@ -104,7 +104,7 @@ def get_subregion_site_dicts(eu_area = 'UK AND IRELAND', wd = None, filename=Non
         subregion_dict[eu_area] = tmp_sites
   
     # --- UK AND IRELAND
-    if eu_area = 'UK AND IRELAND':
+    if eu_area == 'UK AND IRELAND':
         country_typelist = ['united_kingdom','ireland'] #ukire
         def country_in_list(site, my_countries=country_typelist):
             return (site in my_countries)
@@ -114,7 +114,7 @@ def get_subregion_site_dicts(eu_area = 'UK AND IRELAND', wd = None, filename=Non
         subregion_dict[eu_area] = tmp_sites
     
     # --- UK
-    if eu_area = 'UK':
+    if eu_area == 'UK':
         country_typelist = ['united_kingdom']
         def country_in_list(site, my_countries=country_typelist):
             return (site in my_countries)
@@ -124,7 +124,7 @@ def get_subregion_site_dicts(eu_area = 'UK AND IRELAND', wd = None, filename=Non
         subregion_dict[eu_area] = tmp_sites
     
     # --- NORTH MEDITERRANEAN
-    if eu_area = 'NORTH MEDITERANNEAN':
+    if eu_area == 'NORTH MEDITERANNEAN':
         country_typelist = ['spain','italy','malta','slovenia','croatia','bosnia_and_herzegovina','montenegro','albania','greece','turkey','cyprus'] #northmed, exclude france
         def country_in_list(site, my_countries=country_typelist):
             return (site in my_countries)
@@ -134,7 +134,7 @@ def get_subregion_site_dicts(eu_area = 'UK AND IRELAND', wd = None, filename=Non
         subregion_dict[eu_area] = tmp_sites
     
     # --- SCANDINAVIA
-    if eu_area = 'SCANDINAVIA':
+    if eu_area == 'SCANDINAVIA':
         country_typelist = ['denmark','norway','sweden','finland'] #scandinavia
         def country_in_list(site, my_countries=country_typelist):
             return (site in my_countries)
@@ -144,7 +144,7 @@ def get_subregion_site_dicts(eu_area = 'UK AND IRELAND', wd = None, filename=Non
         subregion_dict[eu_area] = tmp_sites
     
     # --- EU
-    if eu_area = 'EU':
+    if eu_area == 'EU':
         country_typelist = ['albania','andorra','austria','belgium','bosnia_and_herzegovina','bulgaria','croatia','cyprus','czech_republic','denmark','estonia','finland','france','germany','greece','hungary','iceland','ireland','italy','kosovo','latvia','liechtenstein','lithuania','luxembourg','macedonia','malta','montenegro','netherlands','norway','poland','portugal','romania','serbia','slovakia','slovenia','spain','sweden','switzerland','turkey','united_kingdom']
         def country_in_list(site, my_countries=country_typelist):
             return (site in my_countries)
