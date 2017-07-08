@@ -6,6 +6,6 @@ MSc_functions - add file imports for files within this repository so they can be
 #from beeprint import pp
 import numpy as np
 
-# We can use an import here so that submodules can be accessed easier.
+# Can use an import here so that submodules can be accessed easier.
 
 from funcs_4_work import *
