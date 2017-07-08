@@ -17,4 +17,5 @@ MS.get_subregion_site_dicts():
 
 mkdir -p $HOME/python
 cd $HOME/python
-git clone --recursive https://github.com/TimGarstin/MSc_tools/
+git clone --recursive https://github.com/TimGarstin/MSc_functions/
+
