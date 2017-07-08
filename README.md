@@ -17,4 +17,4 @@ INSTALL
 
 mkdir -p $HOME/python
 cd $HOME/python
-git clone --recursive https://github.com/TimGarstin/MSc_tools.git
+git clone --recursive https://github.com/TimGarstin/MSc_tools/
