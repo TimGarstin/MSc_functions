@@ -1,4 +1,4 @@
-# MSc_tools
+# MSc_functions
 Additional tools use in conjunction with AC_tools (https://github.com/tsherwen/AC_tools) functions for my MSc project. 
 
 Abit about me - originally used functions within AC_tools but delevoped my own functions for bespoke issues and developements for my project 
@@ -13,7 +13,7 @@ import MSc_tools as MS
 
 MS.get_subregion_site_dicts():
 
-INSTALL
+# INSTALL
 
 mkdir -p $HOME/python
 cd $HOME/python
