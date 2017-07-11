@@ -3,7 +3,7 @@ Additional tools use in conjunction with AC_tools (https://github.com/tsherwen/A
 
 Abit about me - originally used functions within AC_tools but delevoped my own functions for bespoke issues and developements for my project 
 
-This repository contains a portable collection of functions used for working with global/regional chemical transport model (CTM) ouput and observations.
+This repository contains a portable collection of functions used for working with global/regional chemical transport model (CTM) ouput and observations which I worked on using Python on Linux.
 
 The module is setup to be used as a submodule, with collections of functions held in module files that can be imported in entirely or seperately.
 
