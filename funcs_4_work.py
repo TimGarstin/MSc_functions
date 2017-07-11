@@ -276,7 +276,7 @@ def get_runs_percentage_change(data=None, data2=None, change_in='PM25', spec='PM
     
     # make returning DataFrame
     df3 = pd.DataFrame()
- 
+    print df_c
     # Get difference between two runs  
     df_c['dif'] = df_c[change_in] /df_c[change_in+'_df2'] 
        
