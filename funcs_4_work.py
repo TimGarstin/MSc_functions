@@ -245,7 +245,7 @@ def get_subregion_site_dicts(eu_area='UK AND IRELAND', wd=None, filename=None  )
 # --------
 
 
-def get_runs_percentage_change(data=None, data2=None, change_in='PM25', spec=spec, keep_components=True ):
+def get_runs_percentage_change(data=None, data2=None, change_in='PM25', spec='PM25', keep_components=True ):
     """ 
     Function to get % change for different PM (and PM components) between two different GEOS-Chem model timeseries output.
     Can get df components extracted with AC_tools function AC.get_LOC_df_from_NetCDF, with indexed timeseries.(https://github.com/tsherwen/AC_tools)
@@ -298,7 +298,7 @@ def get_runs_percentage_change(data=None, data2=None, change_in='PM25', spec=spe
 # --------
 
 
-def get_PM_from_parts(data=None, spec=None, keep_components=True):
+def get_PM_from_parts(data=None, spec='PM25', keep_components=True):
     """ 
     Function to get PM spec total the components that make it up (sulphates, dust, nitrates, ammonium etc)
     Can get df components from GEOS model timeseires output from AC_tools component extractor function
