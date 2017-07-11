@@ -82,7 +82,7 @@ def get_spec_from_large_dataset( wd=None, file=None, save_loc=None, spec=spec, s
     df.index = df['Date'] # Date already in datetime
     
     # Select species and site columns from DataFrame
-    df =df[[,'site',spec.lower()]]
+    df =df[['site',spec.lower()]]
     df['site'] = df['site'].str.lower()
 
     # Select dataset size of choice by dates filter
