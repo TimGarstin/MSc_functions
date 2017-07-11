@@ -349,7 +349,7 @@ def get_PM_from_parts(data=None, spec='PM25', keep_components=True):
         df['Nitrate'] = df['NIT']
         
         # sum PM2.5 components
-        df[spec] = df['Coarse Dust'] + df['Coarse Sea Salt'] + df['Elemental C'] + df['Organic C'] + df['Sulphate'] + df['Ammonium'] + df['Nitrate']
+        df2[spec] = df['Coarse Dust'] + df['Coarse Sea Salt'] + df['Elemental C'] + df['Organic C'] + df['Sulphate'] + df['Ammonium'] + df['Nitrate']
         df2 = df[spec].copy()
           
         # return requested variables
