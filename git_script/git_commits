@@ -1,0 +1,46 @@
+
+# ---------------Section 0 ------------------
+# --
+
+# Simple git commands
+
+# ----------------------------------------
+"""
+X.XX Git push and git pull
+"""
+# Updating local repository with changes from a github repository
+Git pull origin master
+
+# Or create a new repository on the command line
+echo "# funcs_4_work" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git remote add origin https://github.com/TimGarstin/funcs_4_work.git
+git push -u origin master
+
+# Or push an existing repository from the command line
+git remote add origin https://github.com/TimGarstin/funcs_4_work.git
+git push -u origin master
+
+# ----------------------------------------
+"""
+X.XX Git checkout 
+"""
+#checkout
+git checkout --orphan latest_branch
+
+#Add all the files
+git add -A
+
+#Commit the changes
+git commit -am "commit message"
+
+#Delete the branch
+git branch -D master
+
+#Rename the current branch to master
+git branch -m master
+
+# Force update your repository
+git push -f origin master
