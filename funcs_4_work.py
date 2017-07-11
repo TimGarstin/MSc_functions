@@ -52,7 +52,7 @@ else:
 
 
 # --------
-def get_spec_from_large_dataset( wd=None, file=None, save_loc=None, spec=spec, sdate=sdate, edate=edate )
+def get_spec_from_large_dataset( wd=None, file=None, save_loc=None, spec=spec, sdate=sdate, edate=edate ):
     """ 
     Driver to extract needed data (spec and site) information from large data set
     
