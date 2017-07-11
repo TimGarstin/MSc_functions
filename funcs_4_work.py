@@ -284,7 +284,8 @@ def get_runs_percentage_change(data=None, data2=None, change_in=change_in, spec=
     df_c['f_change'] = df_c['dif'].div(df_c[spec], axis=0)
                                           
     # Multiply fraction column by 100 to get %
-    df3[change_in+' Fractional Change'] = df_c.loc[:,df_c['f_change'] *= 100 
+    df_c[change_in+'Fractional Change'] = df_c.loc[:,'f_change'] *= 100 
+    print df_c.head()
         
     # Return DataFrame
     return df3 
