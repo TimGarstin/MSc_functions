@@ -245,7 +245,7 @@ def get_subregion_site_dicts(eu_area='UK AND IRELAND', wd=None, filename=None  )
 # --------
 
 
-def get_runs_percentage_change(data=None, data2=None, change_in=change_in, spec=spec ):
+def get_runs_percentage_change(data=None, data2=None, change_in=change_in, spec=spec, keep_components=True ):
     """ 
     Function to get % change for different PM (and PM components) between two different GEOS-Chem model timeseries output.
     Can get df components extracted with AC_tools function AC.get_LOC_df_from_NetCDF, with indexed timeseries.(https://github.com/tsherwen/AC_tools)
@@ -256,6 +256,7 @@ def get_runs_percentage_change(data=None, data2=None, change_in=change_in, spec=
     data2 (DataFrame) - of all GEOS output species with column names as GEOS output species names, for GEOS RUN 2
     change_in (str) - % change in what species? ( PM25, PM10, SO4, NIT, NH4 ) - SO4, NIT and NH4 are PM parts
     spec (str) - (PM10 or PM25 where PM25 is PM2.5)
+    keep_componments (booleon) - once Pm calc done keep component data? (NIT, SO4 etc). 
     Returns
     -----
     (DataFrame) 
