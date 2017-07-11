@@ -265,8 +265,8 @@ def get_runs_percentage_change(data=None, data2=None, change_in='PM25', spec='PM
      
     """
     # Get GEOS output dataframe into a more coherent dataframe  - pulls out PM2.5 or PM10 comonent and summed data.
-    df = MS.get_PM_from_parts(data=data, spec=spec, keep_components=True)
-    df2 = MS.get_PM_from_parts(data=data2, spec=spec, keep_components=True)
+    df = get_PM_from_parts(data=data, spec=spec, keep_components=True)
+    df2 = get_PM_from_parts(data=data2, spec=spec, keep_components=True)
     
     # Kludge - both dataframes of same column names need to differentiate, add string to each column in df2
     df2.columns = [str(col) + '_df2' for col in df_done.columns]
