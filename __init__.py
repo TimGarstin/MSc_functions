@@ -9,3 +9,5 @@ import numpy as np
 # Can use an import here so that submodules can be accessed easier.
 
 from funcs_4_work import *
+from funcs_4_work import *
+from math_4_msc import *
