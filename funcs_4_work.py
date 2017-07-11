@@ -248,31 +248,40 @@ def get_runs_percentage_change(data=None, data2=None, change_in=change_in, spec=
     -------
     data (DataFrame) -  of all GEOS output species with column names as GEOS output species names, for GEOS RUN 1
     data2 (DataFrame) - of all GEOS output species with column names as GEOS output species names, for GEOS RUN 2
-    change_in (str) - % change in what species? PM, SO4, NIT, NH4
+    change_in (str) - % change in what species? ( PM25, PM10, SO4, NIT, NH4 ) - SO4, NIT and NH4 are PM parts
     spec (str) - (PM10 or PM25 where PM25 is PM2.5)
     Returns
     -----
     (DataFrame) 
     Notes
-    -- need to make improvements to make this function more versitile for NH4, NIT, SO4
+    -- works but this function can be shrinked further. 
      
     """
-    # Get GEOS output dataframe into a more coherent dataframe 
+    # Get GEOS output dataframe into a more coherent dataframe  - pulls out PM2.5 or PM10 comonent and summed data.
     df = MS.get_PM_from_parts(data=data, spec=spec, keep_components=True)
     df2 = MS.get_PM_from_parts(data=data2, spec=spec, keep_components=True)
-  
+    
+    # Kludge - both dataframes of same column names need to differentiate, add string to each column in df2
+    df2.columns = [str(col) + '_df2' for col in df_done.columns]
+    
+    # Concatonate DataFrame on columns
+    df_c = pd.concat([df, df2], axis=1)
+    
     # make returning DataFrame
     df3 = pd.DataFrame()
-    
-    # change_in choice calculations
-    if change_in == 'PM':
-     # concat relevent dataframes first , then do % calcs for % change
-     
-        df3['delta_PM'] = df[spec]   
+ 
+    # Get difference between two runs  
+    df3['dif'] = df_c[change_in] /df_c[change_in+'_df2'] 
+       
+    # get fractional change from difference (change / run1)
+    df_c['f_change] = df_c['dif'].div(df_c[spec], axis=0)
+                                          
+    # Multiply fraction column by 100 to get %
+    df3[change_in+' Fractional Change'] = df_c.loc[:,df_c['f_change'] *= 100 ]
         
-    
-    # Sum PM componment columns to get PM levels for both runs   
-        
+    # Return DataFrame
+    return df3 
+       
        
 # ----
 # X.XX - Get percentage change in certain species
@@ -301,16 +310,16 @@ def get_PM_from_parts(data=None, spec=spec, keep_components=True):
     df = data
     if spec == 'PM25':
     # Sum PM2,5 geos spec outputs to PM components (dust etc)(e.g. 2 GEOS spec output 'bins' for dust PM2.5).  
-        df['Fine Dust1'] = df['DST1'] + df['DST2']
-        df['Fine Sea Salt1'] = df['SALA']
-        df['Elemental C1'] = df['BCPO'] + df['BCPI']
-        df['Organic C1'] = df['OCPO'] + df['OCPI']
-        df['Sulphate1'] = df['SO4']
-        df['Ammonium1'] = df['NH4']
-        df['Nitrate1'] = df['NIT']
+        df['Fine Dust'] = df['DST1'] + df['DST2']
+        df['Fine Sea Salt'] = df['SALA']
+        df['Elemental C'] = df['BCPO'] + df['BCPI']
+        df['Organic C'] = df['OCPO'] + df['OCPI']
+        df['Sulphate'] = df['SO4']
+        df['Ammonium'] = df['NH4']
+        df['Nitrate'] = df['NIT']
         
         # sum PM2.5 components to make spec column
-        df[spec] = df['Fine Dust1'] + df['Fine Sea Salt1'] + df['Elemental C1'] + df['Organic C1'] + df['Sulphate1'] + df['Ammonium1'] + df['Nitrate1']
+        df[spec] = df['Fine Dust'] + df['Fine Sea Salt'] + df['Elemental C'] + df['Organic C'] + df['Sulphate'] + df['Ammonium'] + df['Nitrate']
         df2 = df[spec].copy()
         
         # return requested variables
@@ -321,16 +330,16 @@ def get_PM_from_parts(data=None, spec=spec, keep_components=True):
            
     elif spec == 'PM10':
     # Sum PM2,5 geos spec outputs to PM components (dust etc)(e.g. 2 GEOS spec output 'bins' for dust PM2.5).  
-        df['Fine Dust1'] = df['DST1'] + df['DST2'] + df['DST3'] + df['DST4']
-        df['Fine Sea Salt1'] = df['SALA'] + df['SALC']
-        df['Elemental C1'] = df['BCPO'] + df['BCPI']
-        df['Organic C1'] = df['OCPO'] + df['OCPI']
-        df['Sulphate1'] = df['SO4']
-        df['Ammonium1'] = df['NH4']
-        df['Nitrate1'] = df['NIT']
+        df['Coarse Dust'] = df['DST1'] + df['DST2'] + df['DST3'] + df['DST4']
+        df['Coarse Sea Salt'] = df['SALA'] + df['SALC']
+        df['Elemental C'] = df['BCPO'] + df['BCPI']
+        df['Organic C'] = df['OCPO'] + df['OCPI']
+        df['Sulphate'] = df['SO4']
+        df['Ammonium'] = df['NH4']
+        df['Nitrate'] = df['NIT']
         
         # sum PM2.5 components
-        df[spec] = df['Fine Dust1'] + df['Fine Sea Salt1'] + df['Elemental C1'] + df['Organic C1'] + df['Sulphate1'] + df['Ammonium1'] + df['Nitrate1']
+        df[spec] = df['Coarse Dust'] + df['Coarse Sea Salt'] + df['Elemental C'] + df['Organic C'] + df['Sulphate'] + df['Ammonium'] + df['Nitrate']
         df2 = df[spec].copy()
           
         # return requested variables
