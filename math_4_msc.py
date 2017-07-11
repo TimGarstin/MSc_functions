@@ -4,7 +4,7 @@
 # -*- coding: utf-8 -*-
 """
 # add math functions relevent to GEOS Chem calculations that have been typically used in my project -- 
-Functions for plotting with Matplotlib and Seaborn packages, in relation to the GEOS-Chem chemical transport model (CTM).
+Functions for typical math functions required in relation to the GEOS-Chem chemical transport model (CTM).
 NOTE(S):    
  - This module is just beginning to be developed, these are being moved across from my developments in a branch of AC_tools (https://github.com/tsherwen/AC_tools/blob/master/funcs4GEOSC.py)
    underdevelopment vestigial/inefficient code is being removed/updated. 
