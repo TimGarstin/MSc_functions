@@ -32,10 +32,16 @@ import math
 # --  This needs to be updated, imports should be specific and in individual functions
 # import MSc_functions that can be used within other functions.
 if __package__ is None:
-    from MSc_functions import *
+    from funcs_4_work import *
+    from funcs_4_plotting import *
+    from math_4_msc import *
+   
  
 else:
-    from .MSc_functions import *
+    from .funcs_4_work import *
+    from .funcs_4_plotting import *
+    from .math_4_msc import *
+    
     
 # --------------------------------- Section 1 ----------------------------------
 # --------------  Data Extractors
