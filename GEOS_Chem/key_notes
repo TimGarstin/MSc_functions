@@ -1,0 +1,66 @@
+
+
+
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+"""
+
+NOTE(S):    
+ - These are summary note on how to format and prepare and excecute a GEOS-Chem run,
+   along with restarting a geoschem run from a given position
+
+ - 
+ 
+ # ----------------------------- Section 0 -----------------------------------
+ 
+ # ---------------------- Setting up a GEOS-Chem run ---------------------
+ # --
+ 
+ # -- Checks
+ in GEOS run folder remove old run folders/files :
+ 1. old bpch output files
+ 2. old net cdf files .nc
+ 3. the input_files directory
+ 4. queue files directory
+ 5. queue output directory
+ 6.plane flight directory
+ 7.log files in log directory
+ 
+ # -- set up input.geos
+ 1. makesure input.geos.orig is renamed input.geos
+ 2. go into input.geos and updatestart and end dates of run (have to be integer intervals, if week sdate and e date have to be one week exactly) of day, week,month intervals)
+ -on the sim menu alter the dates start and end in terms of 3 (restart) and 0 (run between) e.g. a week is 3000003
+ 3.make sure HEMCO and trac dates on file are the start date of the run
+ 4.rename spec directory to change the date to the end of the first week/month of run of simulation
+ e.g. run 1st to 22ns march 2014
+ spec_rst.geos_4x5_tropchem.2014030800
+ 
+ # -- get run going . inport from AC_tools monthly_run script
+ 1. python monthly_run.py
+ 2. selections...
+ 1.name
+ 2.weekly or monthly interval
+ 3.runtime
+ 4. usage 50gb for large run
+ 
+#DONE
+
+
+# ------------------------ Restarting GEOS-Chem run ------------------------
+# --
+
+# -- Clean up from stalled run
+1.remove input_files directory.
+2. rename input.geos.orig input.geos
+3. in input.geos alter startdate to last restart file date
+
+# -- get run going . inport from AC_tools monthly_run script
+ 1. python monthly_run.py
+ 2. selections...
+ 1.name
+ 2.weekly or monthly interval
+ 3.runtime
+ 4. usage 50gb for large run
+ -
+"""
+
