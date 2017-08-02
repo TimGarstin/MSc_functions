@@ -321,45 +321,46 @@ def get_PM_from_parts(data=None, spec='PM25', keep_components=True):
     """
     # working with pandas 
     df = data
+    df2 = pd.DataFrame()
     if spec == 'PM25':
     # Sum PM2,5 geos spec outputs to PM components (dust etc)(e.g. 2 GEOS spec output 'bins' for dust PM2.5).  
-        df['Fine Dust'] = df['DST1'] + df['DST2']
-        df['Fine Sea Salt'] = df['SALA']
-        df['Elemental C'] = df['BCPO'] + df['BCPI']
-        df['Organic C'] = df['OCPO'] + df['OCPI']
-        df['Sulphate'] = df['SO4']
-        df['Ammonium'] = df['NH4']
-        df['Nitrate'] = df['NIT']
+        df2['Fine Dust'] = df['DST1'] + df['DST2']
+        df2['Fine Sea Salt'] = df['SALA']
+        df2['Elemental C'] = df['BCPO'] + df['BCPI']
+        df2['Organic C'] = df['OCPO'] + df['OCPI']
+        df2['Sulphate'] = df['SO4']
+        df2['Ammonium'] = df['NH4']
+        df2['Nitrate'] = df['NIT']
         
         # sum PM2.5 components to make spec column
-        df[spec] = df['Fine Dust'] + df['Fine Sea Salt'] + df['Elemental C'] + df['Organic C'] + df['Sulphate'] + df['Ammonium'] + df['Nitrate']
-        df2 = df[spec].copy()
+        df2[spec] = df['Fine Dust'] + df['Fine Sea Salt'] + df['Elemental C'] + df['Organic C'] + df['Sulphate'] + df['Ammonium'] + df['Nitrate']
+        
         
         # return requested variables
         if keep_components:
-            return df
+            return df2
         else:
-            return df2     
+            return df[spec]     
            
     elif spec == 'PM10':
     # Sum PM2,5 geos spec outputs to PM components (dust etc)(e.g. 2 GEOS spec output 'bins' for dust PM2.5).  
-        df['Coarse Dust'] = df['DST1'] + df['DST2'] + df['DST3'] + df['DST4']
-        df['Coarse Sea Salt'] = df['SALA'] + df['SALC']
-        df['Elemental C'] = df['BCPO'] + df['BCPI']
-        df['Organic C'] = df['OCPO'] + df['OCPI']
-        df['Sulphate'] = df['SO4']
-        df['Ammonium'] = df['NH4']
-        df['Nitrate'] = df['NIT']
+        df2['Coarse Dust'] = df['DST1'] + df['DST2'] + df['DST3'] + df['DST4']
+        df2['Coarse Sea Salt'] = df['SALA'] + df['SALC']
+        df2['Elemental C'] = df['BCPO'] + df['BCPI']
+        df2['Organic C'] = df['OCPO'] + df['OCPI']
+        df2['Sulphate'] = df['SO4']
+        df2['Ammonium'] = df['NH4']
+        df2['Nitrate'] = df['NIT']
         
         # sum PM2.5 components
         df2[spec] = df['Coarse Dust'] + df['Coarse Sea Salt'] + df['Elemental C'] + df['Organic C'] + df['Sulphate'] + df['Ammonium'] + df['Nitrate']
-        df2 = df[spec].copy()
+       
           
         # return requested variables
         if keep_components:
-            return df
+            return df2
         else:
-            return df2    
+            return df2[spec]    
     else:
         print "Select correct spec, (PM10, PM25) or alter function to develop another spec"
       
