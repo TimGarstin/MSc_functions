@@ -270,16 +270,15 @@ def get_runs_percentage_change(data=None, data2=None, change_in='PM25', spec='PM
     
     # Kludge - both dataframes of same column names need to differentiate, add string to each column in df2
     df2.columns = [str(col) + '_df2' for col in df2.columns]
-    print df.head(), df.shape, "df_EMEP"
-    print df2.head(), df2.shape, "df_AGRO"
-    sys.exit()
+    #print df.head(), df.shape, "df_EMEP"
+    #print df2.head(), df2.shape, "df_AGRO"
+
     # Concatonate DataFrame on columns
     df_c = pd.concat([df, df2], axis=1)
-    print df_c.head()
-    #sys.exit()
+
     # make returning DataFrame
     df3 = pd.DataFrame()
-    print df_c.head()
+    #print df_c.head()
     # Get difference between two runs  
     df_c['dif'] = df_c[change_in] /df_c[change_in+'_df2'] 
        
@@ -288,9 +287,9 @@ def get_runs_percentage_change(data=None, data2=None, change_in='PM25', spec='PM
                                           
     # Multiply fraction column by 100 to get %
     #df_c[change_in+'fractional_change'] = df_c.loc[:,'f_change'] *= 100 
-    print df_c.head()
-    df_c[change_in+'fractional_change'] = df_c['f_change'].multiply(100)
-    print df_c.head()
+  
+    df_c[change_in+'f_percent_change'] = df_c['f_change'].multiply(100)
+
         
     # Return DataFrame
     return df3 
