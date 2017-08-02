@@ -270,11 +270,13 @@ def get_runs_percentage_change(data=None, data2=None, change_in='PM25', spec='PM
     
     # Kludge - both dataframes of same column names need to differentiate, add string to each column in df2
     df2.columns = [str(col) + '_df2' for col in df2.columns]
-    
+    print df.head()
+    print df2.head()
+    sys.exit()
     # Concatonate DataFrame on columns
     df_c = pd.concat([df, df2], axis=1)
     print df_c.head()
-    sys.exit()
+    #sys.exit()
     # make returning DataFrame
     df3 = pd.DataFrame()
     print df_c.head()
