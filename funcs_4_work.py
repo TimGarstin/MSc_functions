@@ -270,8 +270,8 @@ def get_runs_percentage_change(data=None, data2=None, change_in='PM25', spec='PM
     
     # Kludge - both dataframes of same column names need to differentiate, add string to each column in df2
     df2.columns = [str(col) + '_df2' for col in df2.columns]
-    print df.head()
-    print df2.head()
+    print df.head(), df.shape, "df_EMEP"
+    print df2.head(), df2.shape, "df_AGRO"
     sys.exit()
     # Concatonate DataFrame on columns
     df_c = pd.concat([df, df2], axis=1)
