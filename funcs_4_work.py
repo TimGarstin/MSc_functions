@@ -280,7 +280,7 @@ def get_runs_percentage_change(data=None, data2=None, change_in='PM25', spec='PM
     
     #print df_c.head()
     # Get difference between two runs  
-    df_c['dif'] = df_c[change_in] /df_c[change_in+'_df2'] 
+    df_c['dif'] = df_c[change_in] - df_c[change_in+'_df2'] 
        
     # get fractional change from difference (change / run1)
     df_c['f_change'] = df_c['dif'].div(df_c[spec], axis=0)
