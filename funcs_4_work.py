@@ -112,7 +112,7 @@ def get_spec_from_large_dataset( wd=None, file=None, save_loc=None, spec='O3', s
     
 
 # ----
-# X.XX - Get dictionary of regional sites, within selected predefined regions
+# X.XX - Get dictionary of regional sites, within selected predefined regions, within limits of EU 0.25x0.3125 nested grid
 # --------
 
 
@@ -122,7 +122,7 @@ def get_subregion_site_dicts(eu_area='UK AND IRELAND', wd=None, filename=None  )
     
     Parameters
     -------
-    eu_area(str) - define area for site region extraction (e.g BELENUX, EU, NORTH MEDDITERANEAN, SCANDINAVIA, WEST, UK, UK AND IRELAND)
+    eu_area(str) - define area for site region extraction (e.g BENELUX)
     wd (str) - working directory of metadata file
     filename (str) - metadatafile
     Returns
@@ -130,19 +130,34 @@ def get_subregion_site_dicts(eu_area='UK AND IRELAND', wd=None, filename=None  )
     (dictionary) , dictionary keys are the regions. within are sites names, country origin of site and for site type.
     Notes
     -----
-     - site type choices can be altered ['rural', 'background', 'rural_background', 'urban_background','suburban_background','suburban','roadside','kerbside','industry','nan']
+     - site type choices can be altered ['rural', 'background', 'rural_background', 'urban_background',\
+     'suburban_background','suburban','roadside','kerbside','industry','nan']
      
     """
     
     # Initialise dataset of regional sites 
     df=pd.read_csv( wd+filename )
     
+    #select relevant columns - in accordance with column naming in T.Sherwen EU metafiles
+    df_e = df_md[['site','country','site_type','latitude','longitude']]
+
+    # Set Eu nested grid limits (0.25 x 0.3125 EU)
+    max_lon = 40
+    min_lon = -15
+    max_lat = 61.25
+    min_lat = 32.75
+    # remove sites within the EU but beyond the limits of the EU nested grid
+    df_a = df.loc[(df["longitude"] < max_lon)]
+    df_a = df_a.loc[(df_a["longitude"] > min_lon)]
+    df_a = df_a.loc[(df_a["latitude"] < max_lat)]
+    df_a = df_a.loc[(df_a["latitude"] > min_lat)]
+
     # Initialise dictionary
     subregion_dict = {}
     
     # Find sites for region and relevant columns
-    df_c = df[['site','country','site_type']]
-    
+    df_c = df_a[['site','country','site_type']]
+    del df_a
     # Loop all sites and check if they are in region
     sites = sorted(set(df_c['site']))
     
@@ -163,7 +178,7 @@ def get_subregion_site_dicts(eu_area='UK AND IRELAND', wd=None, filename=None  )
     
     # --- WEST
     if eu_area == 'WEST':
-        country_typelist = ['spain','france','portugal']
+        country_typelist = ['spain','france','portugal','andorra']
         def country_in_list(site, my_countries=country_typelist):
             return (site in my_countries)
         # Get sites
@@ -171,8 +186,8 @@ def get_subregion_site_dicts(eu_area='UK AND IRELAND', wd=None, filename=None  )
         #add to dictionary
         subregion_dict[eu_area] = tmp_sites
     
-    # --- BELENUX
-    if eu_area == 'BELENUX':
+    # --- BENELUX
+    if eu_area == 'BENELUX':
         country_typelist = ['belgium','luxembourg','netherlands'] # belenux
         def country_in_list(site, my_countries=country_typelist):
             return (site in my_countries)
@@ -191,39 +206,40 @@ def get_subregion_site_dicts(eu_area='UK AND IRELAND', wd=None, filename=None  )
         #add to dictionary
         subregion_dict[eu_area] = tmp_sites
     
-    # --- UK
-    if eu_area == 'UK':
-        country_typelist = ['united_kingdom']
-        def country_in_list(site, my_countries=country_typelist):
-            return (site in my_countries)
-        # Get sites
-        tmp_sites = df_c[df_c['country'].apply(country_in_list)]
-         #add to dictionary
-        subregion_dict[eu_area] = tmp_sites
+    # --- CENTRAL-EASTERN EU
+    if eu_area = 'CENTRAL-EASTERN EU':
+        country_typelist = ['austria','czech_republic','denmark','estonia', \
+                            'germany','hungary','latvia','lithuania','norway',\
+                            'poland','slovakia','sweden','switzerland']
+    def country_in_list(site, my_countries=country_typelist):
+        return (site in my_countries)
+    # Get sites
+    tmp_sites = df_c[df_c['country'].apply(country_in_list)]
+    #add to dictionary
+    subregion_dict[eu_area] = tmp_sites
     
-    # --- NORTH MEDITERRANEAN
-    if eu_area == 'NORTH MEDITERANNEAN':
-        country_typelist = ['spain','italy','malta','slovenia','croatia','bosnia_and_herzegovina','montenegro','albania','greece','turkey','cyprus'] #northmed, exclude france
-        def country_in_list(site, my_countries=country_typelist):
-            return (site in my_countries)
-        # Get sites
-        tmp_sites = df_c[df_c['country'].apply(country_in_list)]
-        #add to dictionary
-        subregion_dict[eu_area] = tmp_sites
-    
-    # --- SCANDINAVIA
-    if eu_area == 'SCANDINAVIA':
-        country_typelist = ['denmark','norway','sweden','finland'] #scandinavia
-        def country_in_list(site, my_countries=country_typelist):
-            return (site in my_countries)
-        # Get sites
-        tmp_sites = df_c[df_c['country'].apply(country_in_list)]
-        #add to dictionary
-        subregion_dict[eu_area] = tmp_sites
+    # --- SOUTHERN EU
+    if eu_area == 'SOUTHERN EU':
+        country_typelist = ['albania','bosnia_and_herzegovina','bulgaria','croatia','cyprus','greece',\
+                            'italy','kosovo','macedonia','malta','montenegro','romania','serbia',\
+                            'slovenia','turkey'] # exclude N france
+    def country_in_list(site, my_countries=country_typelist):
+        return (site in my_countries)
+    # Get sites
+    tmp_sites = df_c[df_c['country'].apply(country_in_list)]
+    #add to dictionary
+    subregion_dict[eu_area] = tmp_sites
+
     
     # --- EU
     if eu_area == 'EU':
-        country_typelist = ['albania','andorra','austria','belgium','bosnia_and_herzegovina','bulgaria','croatia','cyprus','czech_republic','denmark','estonia','finland','france','germany','greece','hungary','iceland','ireland','italy','kosovo','latvia','liechtenstein','lithuania','luxembourg','macedonia','malta','montenegro','netherlands','norway','poland','portugal','romania','serbia','slovakia','slovenia','spain','sweden','switzerland','turkey','united_kingdom']
+        country_typelist = ['albania','andorra','austria','belgium','bosnia_and_herzegovina', \
+                            'bulgaria','croatia','cyprus','czech_republic','denmark','estonia',\
+                            'finland','france','germany','greece','hungary','iceland','ireland',\
+                            'italy','kosovo','latvia','liechtenstein','lithuania','luxembourg',\
+                            'macedonia','malta','montenegro','netherlands','norway','poland',\
+                            'portugal','romania','serbia','slovakia','slovenia','spain','sweden',\
+                            'switzerland','turkey','united_kingdom']
         def country_in_list(site, my_countries=country_typelist):
             return (site in my_countries)
         # Get sites
@@ -232,7 +248,8 @@ def get_subregion_site_dicts(eu_area='UK AND IRELAND', wd=None, filename=None  )
         subregion_dict[eu_area] = tmp_sites
     
     else:
-        print ("Correct region not selected \nREGIONS: BELENUX, EU, NORTH MEDDITERANEAN, SCANDINAVIA, WEST, UK, UK AND IRELAND \nOR add a custom region in github")
+        print ("Correct region not selected \nREGIONS: BELENUX, EU, SOUTHERN EU, \
+        CENTRAL-EASTERN EU, WEST, , UK AND IRELAND \nOR add a custom region in github")
     #return
     return subregion_dict 
    
